@@ -40,7 +40,7 @@ STOPWORDS = set(stopwords.words('english'))
 def load_logistic_regression_model():
     """Load the pre-trained Logistic Regression model"""
     try:
-        model_path = './models/lr_tfidf.joblib'
+        model_path = 'models/lr_tfidf.joblib'
         if os.path.exists(model_path):
             return joblib.load(model_path)
         else:
@@ -54,7 +54,7 @@ def load_logistic_regression_model():
 def load_tfidf_vectorizer():
     """Load the pre-trained TF-IDF vectorizer"""
     try:
-        vectorizer_path = './models/tfidf_vec.joblib'
+        vectorizer_path = 'models/tfidf_vec.joblib'
         if os.path.exists(vectorizer_path):
             return joblib.load(vectorizer_path)
         else:
@@ -64,7 +64,34 @@ def load_tfidf_vectorizer():
         st.error(f"Error loading TF-IDF vectorizer: {str(e)}")
         return None
 
+@st.cache_resource
+def load_lstm_model():
+    """Load the pre-trained LSTM model"""
+    try:
+        model_path = 'models/lstm_sent.h5'
+        if os.path.exists(model_path):
+            return load_model(model_path)
+        else:
+            st.error(f"LSTM model not found at {model_path}")
+            return None
+    except Exception as e:
+        st.error(f"Error loading LSTM model: {str(e)}")
+        return None
 
+@st.cache_resource
+def load_tokenizer():
+    """Load the pre-trained tokenizer"""
+    try:
+        tokenizer_path = 'models/tokenizer.json'
+        if os.path.exists(tokenizer_path):
+            with open(tokenizer_path, 'r') as f:
+                return json.load(f)
+        else:
+            st.error(f"Tokenizer not found at {tokenizer_path}")
+            return None
+    except Exception as e:
+        st.error(f"Error loading tokenizer: {str(e)}")
+        return None
 
 def clean_text(text):
     """Clean and preprocess the input text"""
@@ -362,5 +389,4 @@ def main():
     st.markdown("<p style='text-align: center; color: #808080;'>MovieSent AI Sentiment Analyzer | Powered by Streamlit</p>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
-
     main()
