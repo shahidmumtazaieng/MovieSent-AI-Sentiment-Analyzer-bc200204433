@@ -401,7 +401,8 @@ with tab3:
 st.markdown("---")
 st.markdown("""
 <div style='text-align: center; color: gray;'>
-    <p>Built with Streamlit | Powered by Scikit-learn | Movie Review Sentiment Analysis</p>
+    <p>Develop by Shahid Mumtaz | BC200204433| Movie Review Sentiment Analysis</p>
     <p>Model: Logistic Regression with TF-IDF Features</p>
 </div>
 """, unsafe_allow_html=True)
+
